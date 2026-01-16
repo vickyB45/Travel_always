@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+* {
+  font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}

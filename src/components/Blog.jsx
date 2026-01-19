@@ -1,25 +1,12 @@
+
 "use client";
 
 import { Compass } from "lucide-react";
-
-const blogs = [
-  {
-    title: "Hidden Gems of Vietnam",
-    highlight: "Vietnam",
-    desc: "A guide to off-the-beaten-path destinations.",
-    img: "https://i.pinimg.com/736x/f9/4f/9c/f94f9c3a21f994204512f7ec0c1879ba.jpg",
-    link: "#",
-  },
-  {
-    title: "Maximizing Your Cash Back",
-    highlight: "Cash Back",
-    desc: "Tips on utilizing our 5% monthly return policy.",
-    img: "https://i.pinimg.com/736x/2f/6e/47/2f6e47a8f371433bd21287b566d57e14.jpg",
-    link: "#",
-  },
-];
+import { usePublicBlogs } from "../hooks/public/publicQuery";
 
 export default function Blog() {
+  const { data, isLoading } = usePublicBlogs();
+
   return (
     <section
       id="blog"
@@ -45,49 +32,109 @@ export default function Blog() {
 
         {/* GRID */}
         <div className="grid gap-6 sm:grid-cols-2 justify-center max-w-4xl mx-auto">
-          {blogs.map((blog, i) => (
-            <a
-              key={i}
-              href={blog.link}
-              className="
-                group
-                bg-white
-                rounded-xl
-                overflow-hidden
-                shadow-sm
-                hover:shadow-xl
-                transition
-                will-change-transform
-                hover:-translate-y-2
-                text-left
-              "
-            >
-              {/* IMAGE */}
-              <img
-                src={blog.img}
-                alt={blog.title}
-                loading="lazy"
-                decoding="async"
-                width="300"
-                height="200"
-                className="w-full h-40 object-cover bg-gray-100"
-              />
 
-              {/* CONTENT */}
-              <div className="p-4">
-                <h5 className="font-bold text-slate-900 mb-1">
-                  {blog.title.split(blog.highlight)[0]}
-                  <span className="text-[#0077b6] font-extrabold">
-                    {blog.highlight}
-                  </span>
-                </h5>
-
-                <p className="text-xs text-slate-500">
-                  {blog.desc}
-                </p>
+          {/* 🔄 SKELETON LOADER */}
+          {isLoading &&
+            Array.from({ length: 2 }).map((_, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-xl overflow-hidden shadow-sm animate-pulse"
+              >
+                <div className="w-full h-40 bg-slate-200" />
+                <div className="p-4 space-y-2">
+                  <div className="h-4 bg-slate-200 rounded w-3/4" />
+                  <div className="h-3 bg-slate-200 rounded w-full" />
+                  <div className="h-3 bg-slate-200 rounded w-5/6" />
+                  <div className="flex gap-1 mt-2">
+                    <div className="h-4 w-12 bg-slate-200 rounded-full" />
+                    <div className="h-4 w-14 bg-slate-200 rounded-full" />
+                  </div>
+                </div>
               </div>
-            </a>
-          ))}
+            ))}
+
+          {/* ✅ REAL DATA */}
+          {!isLoading && data?.length > 0 &&
+            data.map((blog) => (
+              <div
+                key={blog._id}
+                className="
+                  group
+                  bg-white
+                  rounded-xl
+                  overflow-hidden
+                  shadow-sm
+                  hover:shadow-xl
+                  transition
+                  will-change-transform
+                  hover:-translate-y-2
+                  text-left
+                "
+              >
+                {/* IMAGE */}
+                <img
+                  src={blog.img}
+                  alt={blog.title}
+                  loading="lazy"
+                  decoding="async"
+                  width="300"
+                  height="200"
+                  className="w-full h-60 object-cover bg-gray-100"
+                />
+
+                {/* CONTENT */}
+                <div className="p-4">
+                  <h5 className="font-bold text-slate-900 mb-1">
+                    {blog.title.split(blog.highlight)[0]}
+                    <span className="text-[#0077b6] font-extrabold">
+                      {blog.highlight}
+                    </span>
+                  </h5>
+
+                  <p className="text-xs text-slate-500 mb-2">
+                    {blog.desc}
+                  </p>
+
+                  {/* 🏷 META DATA TAGS */}
+                  {blog.metaData?.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-1">
+                      {blog.metaData.slice(0, 3).map((tag, i) => (
+                        <span
+                          key={i}
+                          className="
+                            text-[10px]
+                            font-medium
+                            text-orange-600
+                            bg-orange-50
+                            border
+                            border-orange-200
+                            px-2
+                            py-0.5
+                            rounded-full
+                            leading-tight
+                          "
+                        >
+                          {tag}
+                        </span>
+                      ))}
+
+                      {blog.metaData.length > 3 && (
+                        <span className="text-[10px] text-slate-400 ml-1">
+                          +{blog.metaData.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+
+          {/* 🚫 EMPTY STATE */}
+          {!isLoading && data?.length === 0 && (
+            <p className="text-slate-500 text-sm col-span-full">
+              No blogs available right now.
+            </p>
+          )}
         </div>
       </div>
     </section>

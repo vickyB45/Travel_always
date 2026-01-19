@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const hotels = [
   {
     title: "Royal Dubai Dreams",
-    img: "/image/hotels/DubaiHotels.jpg",
+    img: "https://images.pexels.com/photos/5619280/pexels-photo-5619280.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
     meta: "Dubai | 3 / 5-Star Luxury",
     desc: "Panoramic views, prime location & exceptional dining.",
   },
@@ -18,7 +18,7 @@ const hotels = [
   },
   {
     title: "Premium Dubai Hotels",
-    img: "/image/hotels/Atlantis.jpg",
+    img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSbCDZn444257alhMxzWcB2GRce0Dpj0UmuPVdHVqQ8zkNTegGY",
     meta: "Palm Jumeirah, Dubai | Ultra Luxury",
     desc: "Spectacular architecture & ultra-luxury accommodations.",
   },

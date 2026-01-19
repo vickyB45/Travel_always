@@ -10,8 +10,9 @@ const slides = [
     title: (
       <>
         Plan Your{" "}
-        <span className="bg-yellow-400 text-black px-2 py-1 rounded">
+        <span className="bg-yellow-400 whitespace-nowrap text-black px-2 py-1 rounded">
           100% Free Holiday Trip
+
         </span>{" "}
         Today
       </>
@@ -43,7 +44,7 @@ const slides = [
     title: (
       <>
         Incredible India Packages{" "}
-        <span className="bg-yellow-400 text-black px-2 py-1 rounded">
+        <span className="bg-yellow-400 whitespace-nowrap text-black px-2 py-1 rounded">
           starting at ₹9,900
         </span>
       </>
@@ -69,7 +70,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <header  className="relative w-full h-[75vh] md:h-screen overflow-hidden">
+    <header  className="relative w-full h-[90vh] md:h-screen overflow-hidden">
 
       {slides.map((slide, idx) => (
         <div
@@ -85,17 +86,17 @@ const Hero = () => {
               alt="TravelVedas Hero"
               className="absolute inset-0 w-full h-full object-cover"
               loading={idx === 0 ? "eager" : "lazy"}
-              fetchpriority={idx === 0 ? "high" : "low"}
+              fetchPriority={idx === 0 ? "high" : "low"}
             />
           )}
 
           {/* OVERLAY */}
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-black/60" />
 
           {/* CONTENT */}
-          <div className="relative z-20 flex h-full items-end md:items-center justify-center px-4 pb-14 md:pb-0">
+          <div className="relative z-20 flex h-full md:h-[90vh] items-end md:items-end justify-center px-4 pb-14 md:pb-0">
             <div className="max-w-3xl text-center text-white">
-              <h1 className="text-3xl md:text-5xl font-extrabold mb-4">
+              <h1 className="text-3xl md:text-5xl md:leading-15 font-extrabold mb-4">
                 {slide.title}
               </h1>
 

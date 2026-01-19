@@ -13,10 +13,14 @@ import Reviews from '../components/Reviews'
 import Blog from '../components/Blog'
 import EnquiryForm from '../components/EnquiryForm'
 import Footer from '../components/Footer'
+import CashbackModal from "../components/CashbackModal"
+import FloatingButtons from '../components/FloatingButtons'
 
 const Home = () => {
   return (
     <div id='hero'>
+      <CashbackModal />
+      <FloatingButtons />
         <Topbar />
         <Navbar />
         <Hero />

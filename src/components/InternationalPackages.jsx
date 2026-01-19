@@ -2,92 +2,17 @@
 
 import { CheckCircle, Crown } from "lucide-react";
 import { Link } from "react-router-dom";
-
-const packages = [
-  {
-    title: "Dubai Gateway",
-    img: "/image/international/TV19.jpg",
-    meta: "Dubai (International) • 5N / 6D",
-    price: "₹99,000",
-    points: [
-      "Flights, Visa & Transfers",
-      "4★ / 5★ Luxury Hotels",
-      "All Meals Included",
-      "Private Airport Transfers",
-      "Burj Khalifa & Desert Safari",
-    ],
-  },
-  {
-    title: "Explore Vietnam",
-    img: "/image/international/TV15.jpg",
-    meta: "Vietnam / Thailand • 4N / 5D",
-    price: "₹99,999",
-    points: [
-      "Air Tickets + Visa",
-      "Premium 4★ / 5★ Hotels",
-      "All Meals Included",
-      "Private Sightseeing",
-    ],
-  },
-  {
-    title: "Exotic Explorer",
-    img: "/image/international/TV25.jpg",
-    meta: "Azerbaijan • Egypt • Thailand",
-    price: "₹1,49,000",
-    featured: true,
-    points: [
-      "International Flights",
-      "3★ / 4★ / 5★ Hotels",
-      "All Meals & Sightseeing",
-    ],
-  },
-  {
-    title: "Malaysia Getaway",
-    img: "/image/international/TV18.jpg",
-    meta: "Langkawi & Kuala Lumpur • 7N / 8D",
-    price: "₹1,49,999",
-    points: [
-      "Flights & Visa Support",
-      "Luxury Hotels Across Cities",
-      "Best Value Experiences",
-    ],
-  },
-  {
-    title: "Cambodia Awaits",
-    img: "/image/international/Combodia.jpg",
-    meta: "Phnom Penh & Koh Rong • 6N / 7D",
-    price: "₹99,999",
-    points: [
-      "Flights & Visa Included",
-      "Beachfront 3★ / 5★ Resorts",
-      "International Service Quality",
-    ],
-  },
-  {
-    title: "Honeymoon Escapes",
-    img: "/image/international/honeymoon.jpg",
-    meta: "Romantic Destinations • 3N / 4D",
-    price: "₹49,999",
-    points: [
-      "Couple-Only Packages",
-      "Jacuzzi / Ocean View Rooms",
-      "Candle Light & Cruise Dinner",
-    ],
-  },
-  {
-    title: "Bali – Luxury at Value",
-    img: "/image/international/Bali.jpg",
-    meta: "Bali, Indonesia • 4N / 5D",
-    price: "₹99,999",
-    points: [
-      "Handpicked Villas & Resorts",
-      "Spa, Beach Dinners & Adventures",
-      "Private Airport Transfers",
-    ],
-  },
-];
+import { usePublicPackages } from "../hooks/public/publicQuery";
 
 export default function InternationalPackages() {
+  const { data, isLoading } = usePublicPackages();
+  
+  // Filter only international packages that are public
+  const packages = data?.filter(pkg => 
+    pkg.isActive === "public" && 
+    pkg.category?.slug === "global-travel-experiences"
+  ) || [];
+
   return (
     <section
       id="international"
@@ -98,7 +23,6 @@ export default function InternationalPackages() {
       }}
     >
       <div className="max-w-7xl mx-auto px-4">
-
         {/* SECTION TITLE */}
         <div className="text-center mb-16">
           <p className="text-sm tracking-widest font-semibold text-[#FF5722] uppercase mb-2">
@@ -109,89 +33,134 @@ export default function InternationalPackages() {
           </h2>
         </div>
 
-        {/* GRID */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {packages.map((pkg, i) => (
-            <div
-              key={i}
-              className="
-                group
-                bg-white
-                rounded-2xl
-                overflow-hidden
-                shadow
-                hover:shadow-2xl
-                transition
-                flex flex-col
-              "
-            >
-              {/* IMAGE – PERFORMANCE SAFE */}
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src={pkg.img}
-                  alt={pkg.title}
-                  loading="lazy"
-                  decoding="async"
-                  width="420"
-                  height="300"
-                  className="h-full w-full object-cover bg-gray-100 group-hover:scale-105 transition duration-500"
-                />
-                {pkg.featured && (
-                  <span className="absolute top-4 left-4 bg-[#FF5722] text-white text-xs font-bold px-3 py-1 rounded-full">
-                    Popular
-                  </span>
-                )}
+        {/* LOADING STATE */}
+        {isLoading ? (
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <div
+                key={n}
+                className="bg-white rounded-2xl overflow-hidden shadow animate-pulse"
+              >
+                {/* IMAGE SKELETON */}
+                <div className="h-56 w-full bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:200%_100%]"></div>
+
+                {/* CONTENT SKELETON */}
+                <div className="p-6 space-y-3">
+                  {/* TITLE */}
+                  <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                  
+                  {/* META */}
+                  <div className="h-4 bg-gray-200 rounded w-full"></div>
+                  
+                  {/* PRICE */}
+                  <div className="h-8 bg-gray-200 rounded w-1/2"></div>
+                  
+                  {/* POINTS */}
+                  <div className="space-y-2 py-2">
+                    <div className="h-4 bg-gray-200 rounded w-full"></div>
+                    <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                    <div className="h-4 bg-gray-200 rounded w-4/5"></div>
+                  </div>
+                  
+                  {/* BUTTON */}
+                  <div className="h-12 bg-gray-200 rounded-xl w-full"></div>
+                </div>
               </div>
+            ))}
+          </div>
+        ) : packages.length === 0 ? (
+          /* EMPTY STATE */
+          <div className="text-center py-20">
+            <p className="text-gray-500 text-lg">No international packages available at the moment</p>
+          </div>
+        ) : (
+          /* GRID */
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {packages.map((pkg) => (
+              <div
+                key={pkg._id}
+                className="
+                  group
+                  bg-white
+                  rounded-2xl
+                  overflow-hidden
+                  shadow
+                  hover:shadow-2xl
+                  transition
+                  flex flex-col
+                "
+              >
+                {/* IMAGE */}
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={pkg.img}
+                    alt={pkg.title}
+                    loading="lazy"
+                    decoding="async"
+                    width="420"
+                    height="300"
+                    className="h-full w-full object-cover bg-gray-100 group-hover:scale-105 transition duration-500"
+                  />
+                  {pkg.isPopular && (
+                    <span className="absolute top-4 left-4 bg-[#FF5722] text-white text-xs font-bold px-3 py-1 rounded-full">
+                      Popular
+                    </span>
+                  )}
+                </div>
 
-              {/* CONTENT */}
-              <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-lg font-extrabold text-slate-900 mb-1">
-                  {pkg.title}
-                </h3>
+                {/* CONTENT */}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-lg font-extrabold text-slate-900 mb-1">
+                    {pkg.title}
+                  </h3>
 
-                <p className="text-sm text-slate-500 font-medium mb-3">
-                  {pkg.meta}
-                </p>
+                  <p className="text-sm text-slate-500 font-medium mb-3">
+                    {pkg.desc}
+                  </p>
 
-                <p className="text-2xl font-extrabold text-[#FF5722] mb-4">
-                  {pkg.price}
-                </p>
+                  <p className="text-2xl font-extrabold text-[#FF5722] mb-4">
+                    ₹{pkg.price}
+                  </p>
 
-                <ul className="space-y-2 text-sm text-slate-700 font-medium mb-6">
-                  {pkg.points.map((pt, idx) => (
-                    <li
-                      key={idx}
-                      className="flex gap-2 items-start"
-                      style={{ willChange: "transform" }}
-                    >
-                      <CheckCircle size={16} className="text-green-500 mt-[3px]" />
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
+                  {/* POINTS */}
+                  {pkg.points && pkg.points.length > 0 && (
+                    <ul className="space-y-2 text-sm text-slate-700 font-medium mb-6">
+                      {pkg.points.map((pt, idx) => (
+                        <li
+                          key={idx}
+                          className="flex gap-2 items-start"
+                          style={{ willChange: "transform" }}
+                        >
+                          <CheckCircle size={16} className="text-green-500 mt-[3px] flex-shrink-0" />
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
 
-                <Link
-                  to="/enquiry"
-                  className="
-                    mt-auto
-                    block
-                    text-center
-                    rounded-xl
-                    bg-slate-900
-                    text-white
-                    py-3
-                    font-bold
-                    tracking-wide
-                    hover:bg-[#FF5722]
-                    transition
-                  "
-                >
-                  Book Now
-                </Link>
+                  <Link
+                    to="/enquiry"
+                    className="
+                      mt-auto
+                      block
+                      text-center
+                      rounded-xl
+                      bg-slate-900
+                      text-white
+                      py-3
+                      font-bold
+                      tracking-wide
+                      hover:bg-[#FF5722]
+                      transition
+                    "
+                  >
+                    Book Now
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* ULTIMATE LUXURY */}
         <div className="mt-12 bg-slate-900 rounded-3xl p-12 text-center text-white">
@@ -223,7 +192,6 @@ export default function InternationalPackages() {
             Get Ultimate Package
           </Link>
         </div>
-
       </div>
     </section>
   );

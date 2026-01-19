@@ -9,6 +9,7 @@ import {
   Mail,
   MapPin,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -88,6 +89,8 @@ export default function Footer() {
               <li><a href="#" className="hover:text-white">Terms & Conditions</a></li>
               <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
               <li><a href="#contact-section" className="hover:text-white">Support Center</a></li>
+              <li><Link to="/admin/login" className="hover:text-white">Login as Admin</Link></li>
+
             </ul>
           </div>
 

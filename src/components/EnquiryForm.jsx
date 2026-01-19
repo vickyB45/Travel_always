@@ -16,7 +16,7 @@ export default function EnquiryForm() {
 
   return (
     <section
-      className="relative py-20 bg-cover bg-center"
+      className="relative md:py-20 py-14 bg-cover bg-center"
       style={{
         backgroundImage:
           "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920&q=80')",
@@ -24,12 +24,12 @@ export default function EnquiryForm() {
         containIntrinsicSize: "1px 900px",
       }}
     >
-      <div className="max-w-3xl mx-auto px-4">
+      <div className="max-w-3xl mx-auto p-2">
 
         {!submitted ? (
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="bg-white/95 backdrop-blur rounded-2xl p-6 md:p-10 shadow-2xl"
+            className="bg-white/95 backdrop-blur rounded-2xl py-6 px-4 md:p-10 shadow-2xl"
           >
             {/* HEADER */}
             <div className="text-center mb-8">

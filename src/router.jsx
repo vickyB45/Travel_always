@@ -14,15 +14,19 @@ import EditBlog from "./pages/admin/blogs/EditBlog";
 import PackageList from "./pages/admin/packages/PackageList";
 import CreatePackage from "./pages/admin/packages/CreatePackage";
 import EditPackage from "./pages/admin/packages/EditPackage";
+import EditCategory from "./pages/admin/category/EditCategory";
+import CreateCategory from "./pages/admin/category/CreateCategory";
+import CategoryList from "./pages/admin/category/CategoryList";
+import EnquiryList from "./pages/admin/enquery/EnquiryList";
+import EnquiryDetails from "./pages/admin/enquery/EnquiryDetails";
+
+import PageNotFound from "./pages/PageNotFound";
 
 /**
  * PROTECTION
  */
 import ProtectedAdmin from "./components/admin/ProtectedAdmin";
-import PageNotFound from "./pages/PageNotFound";
-import EditCategory from "./pages/admin/category/EditCategory";
-import CreateCategory from "./pages/admin/category/CreateCategory";
-import CategoryList from "./pages/admin/category/CategoryList";
+
 
 export default function Router() {
   return (
@@ -117,6 +121,25 @@ export default function Router() {
         element={
           <ProtectedAdmin>
             <EditCategory />
+          </ProtectedAdmin>
+        }
+      />
+
+       {/* ENQUIRIES */}
+      <Route
+        path="/admin/enquiries"
+        element={
+          <ProtectedAdmin>
+            <EnquiryList />
+          </ProtectedAdmin>
+        }
+      />
+
+      <Route
+        path="/admin/enquiries/:id"
+        element={
+          <ProtectedAdmin>
+            <EnquiryDetails />
           </ProtectedAdmin>
         }
       />

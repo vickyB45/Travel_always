@@ -6,7 +6,6 @@ import { Lock, Mail, Shield, Loader2 } from "lucide-react";
 
 import { adminLoginSchema } from "../../../schemas/admin.schema";
 import { useAdminLogin } from "../../../hooks/admin/mutations/adminMutate";
-import FormSkeleton from "../../../components/common/FormSkeleton";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -56,78 +55,74 @@ const AdminLogin = () => {
 
         {/* Login Card */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-          {isPending ? (
-            <div className="p-8">
-              <FormSkeleton />
+          <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6">
+            {/* EMAIL */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Email Address
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Mail className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="email"
+                  placeholder="admin@travel.com"
+                  {...register("email")}
+                  disabled={isPending}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition outline-none disabled:bg-gray-50 disabled:cursor-not-allowed"
+                />
+              </div>
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
+                  <span className="text-base">⚠</span> {errors.email.message}
+                </p>
+              )}
             </div>
-          ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="p-8 space-y-6">
-              {/* EMAIL */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="email"
-                    placeholder="admin@travel.com"
-                    {...register("email")}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition outline-none"
-                  />
-                </div>
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
-                    <span className="text-base">⚠</span> {errors.email.message}
-                  </p>
-                )}
-              </div>
 
-              {/* PASSWORD */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Password
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input
-                    type="password"
-                    placeholder="Enter your password"
-                    {...register("password")}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition outline-none"
-                  />
+            {/* PASSWORD */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Lock className="h-5 w-5 text-gray-400" />
                 </div>
-                {errors.password && (
-                  <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
-                    <span className="text-base">⚠</span> {errors.password.message}
-                  </p>
-                )}
+                <input
+                  type="password"
+                  placeholder="Enter your password"
+                  {...register("password")}
+                  disabled={isPending}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition outline-none disabled:bg-gray-50 disabled:cursor-not-allowed"
+                />
               </div>
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
+                  <span className="text-base">⚠</span> {errors.password.message}
+                </p>
+              )}
+            </div>
 
-              {/* SUBMIT BUTTON */}
-              <button
-                type="submit"
-                disabled={isPending}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {isPending ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Signing in...
-                  </>
-                ) : (
-                  <>
-                    <Lock className="w-5 h-5" />
-                    Sign In
-                  </>
-                )}
-              </button>
-            </form>
-          )}
+            {/* SUBMIT BUTTON */}
+            <button
+              type="submit"
+              disabled={isPending}
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {isPending ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                <>
+                  <Lock className="w-5 h-5" />
+                  Sign In
+                </>
+              )}
+            </button>
+          </form>
         </div>
 
         {/* Footer */}

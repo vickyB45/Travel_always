@@ -1,31 +1,45 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { Send, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Send, CheckCircle2 } from "lucide-react";
+import { enquirySchema } from "../schemas/admin.schema";
+import { useCreateEnquiry } from "../hooks/public/publicQuery";
+
 
 export default function EnquiryForm() {
-  const { register, handleSubmit, reset } = useForm();
   const [submitted, setSubmitted] = useState(false);
 
-  const onSubmit = (data) => {
-    console.log("ENQUIRY FORM DATA 👉", data);
-    setSubmitted(true);
-    reset();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(enquirySchema),
+  });
+
+  const { mutate, isPending } = useCreateEnquiry();
+
+  const onSubmit = (formData) => {
+    mutate(formData, {
+      onSuccess: () => {
+        setSubmitted(true);
+        reset();
+      },
+    });
   };
 
   return (
     <section
-      className="relative md:py-20 py-14 bg-cover bg-center"
+      className=" min-h-screen relative md:py-20 py-14 bg-cover bg-center"
       style={{
         backgroundImage:
           "linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920&q=80')",
-        contentVisibility: "auto",
-        containIntrinsicSize: "1px 900px",
       }}
     >
       <div className="max-w-3xl mx-auto p-2">
-
         {!submitted ? (
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -47,10 +61,15 @@ export default function EnquiryForm() {
                 Full Name
               </label>
               <input
-                {...register("name", { required: true })}
+                {...register("name")}
+                className="w-full rounded-lg border px-3 py-2 text-[16px]"
                 placeholder="John Doe"
-                className="w-full rounded-lg border px-3 py-2 text-[16px] focus:ring-2 focus:ring-[#c5a059]"
               />
+              {errors.name && (
+                <p className="text-xs text-red-600 mt-1">
+                  {errors.name.message}
+                </p>
+              )}
             </div>
 
             {/* EMAIL + PHONE */}
@@ -61,10 +80,14 @@ export default function EnquiryForm() {
                 </label>
                 <input
                   type="email"
-                  {...register("email", { required: true })}
-                  placeholder="email@example.com"
-                  className="w-full rounded-lg border px-3 py-2 text-[16px] focus:ring-2 focus:ring-[#c5a059]"
+                  {...register("email")}
+                  className="w-full rounded-lg border px-3 py-2 text-[16px]"
                 />
+                {errors.email && (
+                  <p className="text-xs text-red-600 mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -73,38 +96,43 @@ export default function EnquiryForm() {
                 </label>
                 <input
                   type="tel"
-                  {...register("phone", { required: true })}
-                  placeholder="Phone Number"
-                  className="w-full rounded-lg border px-3 py-2 text-[16px] focus:ring-2 focus:ring-[#c5a059]"
+                  {...register("phone")}
+                  className="w-full rounded-lg border px-3 py-2 text-[16px]"
                 />
+                {errors.phone && (
+                  <p className="text-xs text-red-600 mt-1">
+                    {errors.phone.message}
+                  </p>
+                )}
               </div>
             </div>
 
-            {/* DESTINATION */}
+            {/* DESTINATION (INPUT + DATALIST) */}
             <div className="mb-4">
               <label className="block text-xs font-bold uppercase mb-1">
-                Select Tour Destination
+                Destination / Package
               </label>
-              <select
-                {...register("destination", { required: true })}
-                defaultValue=""
-                className="w-full rounded-lg border px-3 py-2 text-[16px] focus:ring-2 focus:ring-[#c5a059]"
-              >
-                <option value="" disabled>
-                  Choose Destination...
-                </option>
-                <option>Other Destination</option>
-                <option>Dubai Tours</option>
-                <option>Vietnam Package</option>
-                <option>Thailand Tour</option>
-                <option>Goa Tours</option>
-                <option>Combodia Tour</option>
-                <option>Special Honeymoon Package</option>
-                <option>Hill Stations Value</option>
-                <option>Manali Customized Tours</option>
-                <option>Shimla Package</option>
-                <option>Dalhousie Tour</option>
-              </select>
+              <input
+                {...register("destination")}
+                list="destinations"
+                placeholder="Type or select destination"
+                className="w-full rounded-lg border px-3 py-2 text-[16px]"
+              />
+              <datalist id="destinations">
+                <option value="Dubai Tours" />
+                <option value="Vietnam Package" />
+                <option value="Thailand Tour" />
+                <option value="Goa Tours" />
+                <option value="Manali Customized Tours" />
+                <option value="Shimla Package" />
+                <option value="Dalhousie Tour" />
+                <option value="Special Honeymoon Package" />
+              </datalist>
+              {errors.destination && (
+                <p className="text-xs text-red-600 mt-1">
+                  {errors.destination.message}
+                </p>
+              )}
             </div>
 
             {/* DATE + GUESTS */}
@@ -116,9 +144,14 @@ export default function EnquiryForm() {
                 <input
                   type="date"
                   min={new Date().toISOString().split("T")[0]}
-                  {...register("arrival_date", { required: true })}
-                  className="w-full rounded-lg border px-3 py-2 text-[16px] focus:ring-2 focus:ring-[#c5a059]"
+                  {...register("arrival_date")}
+                  className="w-full rounded-lg border px-3 py-2 text-[16px]"
                 />
+                {errors.arrival_date && (
+                  <p className="text-xs text-red-600 mt-1">
+                    {errors.arrival_date.message}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -135,7 +168,7 @@ export default function EnquiryForm() {
               </div>
             </div>
 
-            {/* REQUESTS */}
+            {/* SPECIAL REQUESTS */}
             <div className="mb-6">
               <label className="block text-xs font-bold uppercase mb-1">
                 Special Requests
@@ -143,33 +176,34 @@ export default function EnquiryForm() {
               <textarea
                 rows="2"
                 {...register("special_requests")}
+                className="w-full rounded-lg border px-3 py-2 text-[16px]"
                 placeholder="Tell us more about your needs..."
-                className="w-full rounded-lg border px-3 py-2 text-[16px] resize-none"
               />
             </div>
 
-            {/* BUTTON */}
+            {/* SUBMIT */}
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 bg-[#c5a059] hover:bg-[#b38f4d] text-white font-bold uppercase py-3 rounded-lg transition"
+              disabled={isPending}
+              className="w-full flex items-center justify-center gap-2 bg-[#c5a059] hover:bg-[#b38f4d] disabled:opacity-60 text-white font-bold uppercase py-3 rounded-lg"
             >
               <Send size={18} />
-              Send My Quote Request
+              {isPending ? "Submitting..." : "Send My Quote Request"}
             </button>
           </form>
         ) : (
-          /* THANK YOU */
+          /* SUCCESS */
           <div className="bg-white rounded-2xl p-10 text-center shadow-2xl">
-            <CheckCircle2 className="mx-auto text-green-600 mb-4" size={56} />
+            <CheckCircle2 size={56} className="mx-auto text-green-600 mb-4" />
             <h2 className="text-2xl font-extrabold mb-2">
               Request Received!
             </h2>
             <p className="text-slate-600 mb-6">
-              Check console for submitted form data.
+              Our team will contact you shortly.
             </p>
             <button
               onClick={() => setSubmitted(false)}
-              className="px-6 py-3 rounded-lg bg-slate-900 text-white font-semibold hover:scale-105 transition"
+              className="px-6 py-3 rounded-lg bg-slate-900 text-white font-semibold"
             >
               Submit Another Request
             </button>

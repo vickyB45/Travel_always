@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { handleBlogById, handleCategoryById, handlePackageById, handlePublicBlog, handlePublicCategories, handlePublicPackage } from "../../api/public/publicApi";
+import { createEnquiry, handleBlogById, handleCategoryById, handlePackageById, handlePublicBlog, handlePublicCategories, handlePublicPackage } from "../../api/public/publicApi";
 
 
 /**
@@ -123,6 +123,27 @@ export const usePublicCategoryById = (id) => {
       toast.error(
         err?.response?.data?.message ||
           "Failed to load category"
+      );
+    },
+  });
+};
+
+/**
+ * ===============================
+ * ENQUIRY MUTATION (PUBLIC)
+ * ===============================
+ */
+export const useCreateEnquiry = () => {
+  return useMutation({
+    mutationFn: createEnquiry,
+    onSuccess: (res) => {
+      toast.success(
+        res?.message || "Enquiry submitted successfully"
+      );
+    },
+    onError: (err) => {
+      toast.error(
+        err?.response?.data?.message || "Failed to submit enquiry"
       );
     },
   });

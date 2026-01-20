@@ -5,7 +5,9 @@ import {
   getAdminMe,
   getAllBlogsAdmin,
   getAllCategoriesAdmin,
-  getAllPackagesAdmin
+  getAllEnquiriesAdmin,
+  getAllPackagesAdmin,
+  getSingleEnquiryAdmin
 } from "../../../api/admin/adminApi";
 
 /**
@@ -107,5 +109,30 @@ export const useAdminCategories = () => {
         err?.response?.data?.message || "Failed to fetch categories"
       );
     }
+  });
+};
+
+
+/**
+ * ===============================
+ * ENQUIRY QUERIES (ADMIN)
+ * ===============================
+ */
+
+// Get all enquiries
+export const useGetAllEnquiriesAdmin = () => {
+  return useQuery({
+    queryKey: ["admin-enquiries"],
+    queryFn: getAllEnquiriesAdmin,
+    staleTime: 1000 * 30,
+  });
+};
+
+// Get single enquiry by ID
+export const useGetSingleEnquiryAdmin = (id) => {
+  return useQuery({
+    queryKey: ["admin-enquiry", id],
+    queryFn: () => getSingleEnquiryAdmin(id),
+    enabled: !!id,
   });
 };

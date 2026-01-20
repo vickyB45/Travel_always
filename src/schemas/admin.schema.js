@@ -82,3 +82,34 @@ export const categorySchema = z.object({
   description: z.string().optional(),
   isActive: z.boolean().optional(),
 });
+
+
+/**
+ * ===============================
+ * ENQUIRY SCHEMA (PUBLIC)
+ * ===============================
+ */
+export const enquirySchema = z.object({
+  name: z.string().min(2, "Name is required"),
+
+  email: z
+    .string()
+    .email("Invalid email address"),
+
+  phone: z
+    .string()
+    .min(8, "Phone number is too short")
+    .max(15, "Phone number is too long"),
+
+  destination: z.string().min(2, "Destination is required"),
+
+  arrival_date: z.string().min(1, "Arrival date is required"),
+
+  guests: z
+    .union([z.string(), z.number()])
+    .transform((val) => Number(val))
+    .refine((val) => val >= 1, "Guests must be at least 1")
+    .optional(),
+
+  special_requests: z.string().optional(),
+});

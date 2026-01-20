@@ -5,6 +5,7 @@ import {
   Package,
   X,
   Tag,
+  MessageSquare,
 } from "lucide-react";
 
 const navItems = [
@@ -27,6 +28,11 @@ const navItems = [
     label: "Packages",
     to: "/admin/packages",
     icon: Package,
+  },
+   {
+    label: "Enquiries",        
+    to: "/admin/enquiries",    
+    icon: MessageSquare,       
   },
 ];
 

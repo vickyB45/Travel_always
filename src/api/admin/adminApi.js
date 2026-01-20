@@ -120,3 +120,27 @@ export const deleteCategoryAdmin = async (id) => {
   const res = await axiosBaseUrl.delete(`/category/${id}`);
   return res.data;
 };
+
+/* ===============================
+ * ENQUIRY APIS (ADMIN)
+ * ===============================
+ */
+
+// Get all enquiries
+export const getAllEnquiriesAdmin = async () => {
+  const res = await axiosBaseUrl.get("/enqueries");
+  return res.data;
+};
+
+// Get single enquiry
+export const getSingleEnquiryAdmin = async (id) => {
+  const res = await axiosBaseUrl.get(`/enqueries/${id}`);
+  return res.data;
+};
+
+// Update enquiry status / notes
+export const updateEnquiryStatusAdmin = async ({ id, data }) => {
+  const res = await axiosBaseUrl.patch(`/enqueries/${id}/status`, data);
+  return res.data;
+};
+

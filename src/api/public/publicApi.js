@@ -59,3 +59,10 @@ export const handleCategoryById = async (id) => {
   );
   return res.data;
 };
+
+
+// Create Enquiry (Public)
+export const createEnquiry = async (data) => {
+  const res = await axiosBaseUrl.post("/enqueries", data);
+  return res.data;
+};

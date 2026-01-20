@@ -143,7 +143,7 @@ const AdminDashboard = () => {
   const activePackages = packages?.filter(pkg => pkg.isActive === "public").length || 0;
   const activeBlogs = blogs?.filter(blog => blog.isActive === "public").length || 0;
   
-  const pendingEnquiries = enquiries?.data?.filter(enq => enq.status === "pending").length || 0;
+  const pendingEnquiries = enquiries?.data?.filter(enq => enq.status === "new").length || 0;
   const contactedEnquiries = enquiries?.data?.filter(enq => enq.status === "contacted").length || 0;
 
   // Get recent items (sorted by date)

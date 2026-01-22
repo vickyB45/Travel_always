@@ -2,11 +2,10 @@ import React from "react";
 import {
   Facebook,
   Instagram,
-  Twitter,
   Youtube,
-  Phone,
-  MessageCircle,
 } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
+
 
 const Topbar = () => {
   return (
@@ -28,25 +27,7 @@ const Topbar = () => {
           gap-5
         "
       >
-        {/* CALL */}
-        <a
-          href="tel:+918879151953"
-          aria-label="Call TravelVedas"
-          className="text-[#F7E8D3] transition-transform duration-200 hover:scale-110 hover:opacity-90"
-        >
-          <Phone size={20} />
-        </a>
-
-        {/* WHATSAPP */}
-        <a
-          href="https://wa.me/918879151953?text=Hi%20TravelVedas,%20I%20am%20interested%20in%20planning%20a%20trip.%20Could%20you%20please%20provide%20more%20details%20about%20your%20available%20packages?"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="WhatsApp TravelVedas"
-          className="text-[#F7E8D3] transition-transform duration-200 hover:scale-110 hover:opacity-90"
-        >
-          <MessageCircle size={20} />
-        </a>
+        
 
         {/* FACEBOOK */}
         <a
@@ -75,7 +56,7 @@ const Topbar = () => {
           aria-label="Visit us on X (Twitter)"
           className="text-[#F7E8D3] transition-transform duration-200 hover:scale-110 hover:opacity-90"
         >
-          <Twitter size={20} />
+          <FaXTwitter size={20} />
         </a>
 
         {/* YOUTUBE */}

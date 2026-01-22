@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const slides = [
   {
-    image: "https://images.unsplash.com/photo-1761069449669-1b17dc39831b?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // 🔥 LOCAL + WEBP
+    image: "https://images.unsplash.com/photo-1619467416348-6a782839e95f?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // 🔥 LOCAL + WEBP
     title: (
       <>
         Plan Your{" "}
@@ -25,7 +25,7 @@ const slides = [
     },
   },
   {
-    image: "https://plus.unsplash.com/premium_photo-1663036285889-1130c4e78bec?q=80&w=1033&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "https://i.pinimg.com/736x/3e/3e/73/3e3e734a7d0328e1df4e917caf67129f.jpg",
     title: (
       <>
         <span className="text-yellow-400">ULTIMATE</span>{" "}
@@ -40,7 +40,7 @@ const slides = [
     },
   },
   {
-    image: "https://images.unsplash.com/photo-1766717419153-31fbcb65c9b7?q=80&w=1100&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "https://plus.unsplash.com/premium_photo-1697729594707-0fc9e51c8eed?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: (
       <>
         Incredible India Packages{" "}

@@ -119,7 +119,7 @@ export default function InternationalPackages() {
                   </p>
 
                   <p className="text-2xl font-extrabold text-[#FF5722] mb-4">
-                    ₹{pkg.price}
+                    ₹{pkg.price.toLocaleString("en-IN")}
                   </p>
 
                   {/* POINTS */}

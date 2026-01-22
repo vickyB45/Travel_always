@@ -3,12 +3,12 @@
 import {
   Facebook,
   Instagram,
-  Twitter,
   Youtube,
   Phone,
   Mail,
   MapPin,
 } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -57,7 +57,7 @@ export default function Footer() {
                 aria-label="X"
                 className="p-2 rounded-full bg-white/10 hover:bg-black transition"
               >
-                <Twitter size={18} />
+                <FaXTwitter size={18} />
               </a>
               <a
                 href="https://www.youtube.com/watch?v=5K1t4p0BDQY"

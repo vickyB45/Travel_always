@@ -6,11 +6,13 @@ import { usePublicCategories, usePublicPackages } from "../hooks/public/publicQu
 
 const DomesticPackages = () => {
   const { data, isLoading } = usePublicPackages();
+
   
   // Filter only domestic packages that are public
   const packages = data?.filter(pkg => 
     pkg.isActive === "public" && 
     pkg.category?.slug === "domestic-tour-packages-(incredible-india)"
+    
   ) || [];
 
   return (
@@ -99,7 +101,7 @@ const DomesticPackages = () => {
                   </p>
 
                   <p className="text-xl font-extrabold text-[#0077b6] mb-3">
-                    Starting ₹{pkg.price}
+                    Starting ₹{pkg.price.toLocaleString("en-IN")}
                   </p>
 
                   {/* POINTS */}

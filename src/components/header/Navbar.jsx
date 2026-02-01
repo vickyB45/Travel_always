@@ -62,7 +62,7 @@ const Navbar = () => {
             <li><a href="#about" onClick={(e) => handleScroll(e, "#about")} className={navItem}>About Us</a></li>
             <li><a href="#domestic" onClick={(e) => handleScroll(e, "#domestic")} className={navItem}>Domestic Tours</a></li>
             <li><a href="#international" onClick={(e) => handleScroll(e, "#international")} className={navItem}>International Tours</a></li>
-            <li><a href="#blog" onClick={(e) => handleScroll(e, "#blog")} className={navItem}>Blog</a></li>
+            <li><a href="#blog" onClick={(e) => handleScroll(e, "#blog")} className={navItem}>Airbnb </a></li>
 
             <li className="ml-3">
               <a

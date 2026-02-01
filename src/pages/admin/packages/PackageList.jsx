@@ -143,7 +143,7 @@ const PackageList = () => {
 
                     <td className="px-6 py-4">
                       <span className="text-lg font-bold text-gray-900">
-                        ₹{pkg.price}
+                        ₹{pkg.price.toLocaleString("en-IN")}
                       </span>
                     </td>
                     <td className="px-6 py-4">

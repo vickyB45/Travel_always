@@ -77,7 +77,7 @@ export default function Footer() {
               <li><a href="#domestic" className="hover:text-white">Domestic Deals</a></li>
               <li><a href="#international" className="hover:text-white">International Packages</a></li>
               <li><a href="#cashback-modern" className="text-[#FF5722] font-semibold">100% Cash Back Offer</a></li>
-              <li><a href="#blog" className="hover:text-white">Travel Blog</a></li>
+              <li><a href="#blog" className="hover:text-white">Airbnb </a></li>
             </ul>
           </div>
 

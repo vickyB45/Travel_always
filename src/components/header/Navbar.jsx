@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Menu, X, Send } from "lucide-react";
+import { Link } from "react-router-dom"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -35,7 +36,7 @@ const Navbar = () => {
           left-0 right-0 z-[2040]
           h-[60px] md:h-[56px]
           bg-white shadow-lg
-          md:min-w-[1050px]
+          md:min-w-[1200px]
           md:left-1/2 md:-translate-x-1/2
           md:rounded-full
           flex items-center justify-center
@@ -62,7 +63,8 @@ const Navbar = () => {
             <li><a href="#about" onClick={(e) => handleScroll(e, "#about")} className={navItem}>About Us</a></li>
             <li><a href="#domestic" onClick={(e) => handleScroll(e, "#domestic")} className={navItem}>Domestic Tours</a></li>
             <li><a href="#international" onClick={(e) => handleScroll(e, "#international")} className={navItem}>International Tours</a></li>
-            <li><a href="#blog" onClick={(e) => handleScroll(e, "#blog")} className={navItem}>Airbnb </a></li>
+            <li><a href="#blog" onClick={(e) => handleScroll(e, "#blog")} className={navItem}>Blog </a></li>
+            <li className={navItem}><Link to="/airbun">Airbnb</Link></li>
 
             <li className="ml-3">
               <a
@@ -135,6 +137,7 @@ const Navbar = () => {
                 </a>
               </li>
             ))}
+            <li className="font-bold"><Link to="/airbun">Airbnb</Link></li>
 
             <li>
               <a

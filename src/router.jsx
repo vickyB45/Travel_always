@@ -26,6 +26,7 @@ import PageNotFound from "./pages/PageNotFound";
  * PROTECTION
  */
 import ProtectedAdmin from "./components/admin/ProtectedAdmin";
+import Airbnb from "./pages/Airbnb";
 
 
 export default function Router() {
@@ -34,6 +35,7 @@ export default function Router() {
       {/* ================= PUBLIC ROUTES ================= */}
       <Route path="/" element={<Home />} />
       <Route path="/enquiry" element={<Enquiry />} />
+      <Route path="/airbun" element={<Airbnb />} />
 
       {/* ================= ADMIN AUTH ================= */}
       <Route path="/admin/login" element={<AdminLogin />} />
